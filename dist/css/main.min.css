@@ -4928,10 +4928,11 @@ body {
   box-shadow: 0 0 10px 10px rgba(0, 200, 0, 0.75) !important;
 }
 .game-board .checker.neon {
-  box-shadow: 0 0 5px 7px rgba(127, 253, 96, 0.35);
+  box-shadow: 0 0 4px 5px rgba(127, 253, 96, 0.25);
 }
 .game-board .checker.must {
   border: 5px solid rgb(244, 104, 61) !important;
+  box-shadow: 0 0 4px 5px rgba(127, 253, 96, 0.25);
 }
 .game-board .checker.light {
   background-color: rgb(210, 210, 210);

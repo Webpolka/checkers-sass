@@ -66,26 +66,26 @@ function even(n) {
 }
 
 // ------------------------------------------------------ Place checkers ---------------------------------------------------------------------
-// let checkersArray = [
-//     [0, 2, 0, 2, 0, 2, 0, 2],
-//     [2, 0, 2, 0, 2, 0, 2, 0],
-//     [0, 2, 0, 2, 0, 2, 0, 2],
-//     [0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0],
-//     [1, 0, 1, 0, 1, 0, 1, 0],
-//     [0, 1, 0, 1, 0, 1, 0, 1],
-//     [1, 0, 1, 0, 1, 0, 1, 0],
-// ]
 let checkersArray = [
-    [0, 22, 0, 0, 0, 2, 0, 2],
-    [0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 22, 0, 2, 0, 0, 0, 0],
-    [0, 0, 11, 0, 1, 0, 0, 0],
-    [0, 11, 0, 0, 0, 0, 0, 0],
+    [0, 2, 0, 2, 0, 2, 0, 2],
+    [2, 0, 2, 0, 2, 0, 2, 0],
+    [0, 2, 0, 2, 0, 2, 0, 2],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 2, 0, 0],
-    [0, 0, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 1, 0],
 ]
+// let checkersArray = [
+//     [0, 22, 0, 0, 0, 2, 0, 2],
+//     [0, 0, 0, 0, 0, 0, 1, 0],
+//     [0, 22, 0, 2, 0, 0, 0, 0],
+//     [0, 0, 11, 0, 1, 0, 0, 0],
+//     [0, 11, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 2, 0, 0],
+//     [0, 0, 2, 0, 0, 0, 0, 0],
+// ]
 
 function createCheckers() {
     let chekerHtml = ""
@@ -115,7 +115,7 @@ let killedCheckerXY = {}
 
 let currentCheker
 let targetCell
-let quene = 'dark'
+let quene = 'light'
 let side
 
 let firstGame = true
@@ -125,7 +125,26 @@ menu()
 function sideStart() {
     // --- Обячный режим на два игрока
     if (gameModule == 'player') {
+
         sideNeon()
+
+        let enemy, curr
+        quene == 'light' ? enemy = darkCheckers : enemy = lightCheckers
+        quene == 'light' ? curr = lightCheckers : curr = darkCheckers
+
+        // -- обнуляем все лишние прослушиватели, и на случяай если шашка в процессе БЪЕТ-- 
+        enemy.forEach(e => {
+            e.removeEventListener('click', selectChecker)
+            e.removeEventListener('click', killChecker)
+        })
+        if (killerCounter > 0) {
+            curr.forEach(c => {
+                c.removeEventListener('click', selectChecker)
+                c.removeEventListener('click', killChecker)
+            })
+        }
+
+        // -- если нет обязательных вариантов когда нужно бить -- 
         if (!canStrikeEnemysGlobal()) {
             let ready = concatedReadyCheckersArray();
             if (ready.length !== 0) {
@@ -137,11 +156,15 @@ function sideStart() {
                 quene == 'light' ? winSide = 'ЧЁРНЫЕ' : winSide = 'БЕЛЫЕ'
                 warningMessage(`${winSide} ВЫИГРАЛИ`, 1500); setTimeout(() => { menu() }, 1500)
             }
+
+            // -- если бить обязательноо !!! -- 
         } else {
             mustStrike()
             mustStrikeArrayEl.forEach(ch => {
                 ch.addEventListener('click', killChecker, false)
             })
+
+
         }
     }
     // --- режим компьютер - человек
@@ -191,7 +214,7 @@ function sideStart() {
 }
 
 // --- Убиваем шашку которые должны бить ---
-function killChecker(e) {    
+function killChecker(e) {
     currentCheker = e.target
     updateStrikeTargets()
     currentCheker.classList.add('active')
@@ -218,7 +241,7 @@ function sideEnd() {
 }
 
 // --- Выбираем шашку которой будем ходить --- 
-function selectChecker(e) {    
+function selectChecker(e) {
     currentCheker = e.target
     currentCheker && updateSelected()
     currentCheker && selectTargetCell()
@@ -264,7 +287,7 @@ function selectTargetKillCell() {
 }
 
 // --- Выбираем клетку куда нам походить --- 
-function selectTargetCell() {   
+function selectTargetCell() {
     // -- обычный режим два игрока
     if (gameModule == 'player') {
         emptyCells().forEach(cell => {
@@ -409,21 +432,24 @@ function mustStrike() {
 
 // --- Неоновая подсветка шашек для стороны которая ходит ---
 function sideNeon() {
-    let neonActive, neonPassive, neonTableActive, neonTablePassive
+    let neonPassive, neonTableActive, neonTablePassive
     if (quene == 'light') {
-        neonActive = lightCheckers
         neonPassive = darkCheckers
         neonTableActive = lightTable
         neonTablePassive = darkTable
     } else {
-        neonActive = darkCheckers
         neonPassive = lightCheckers
         neonTableActive = darkTable
         neonTablePassive = lightTable
     }
-    neonActive.forEach(c => {
-        c.classList.add('neon')
-    })
+
+    let neonActive = concatedReadyCheckersArray();
+    if (neonActive.length !== 0) {
+        neonActive.forEach(n => {
+            n.el.classList.add('neon')
+        });
+    }
+
     neonPassive.forEach(c => {
         c.classList.remove('neon')
     })
@@ -441,7 +467,6 @@ function updateSelected() {
     })
     currentCheker.classList.add('active')
 }
-
 
 // -- удаляем все выделения шашек и клеток ---
 function removeSelected(mustRemove) {
@@ -536,7 +561,7 @@ function gameAgain() {
         darkTableUl.innerHTML = ''
         lightTableUl.innerHTML = ''
 
-        sideStart()       
+        sideStart()
     }, 2000)
 
 }

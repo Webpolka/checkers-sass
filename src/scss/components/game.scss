@@ -213,11 +213,12 @@ body {
             }
 
             &.neon {
-                box-shadow: 0 0 5px 7px rgba(127, 253, 96, 0.35);
+                box-shadow: 0 0 4px 5px rgba(127, 253, 96, 0.25);
             }
 
             &.must {
                 border: 5px solid rgb(244, 104, 61) !important;
+                box-shadow: 0 0 4px 5px rgba(127, 253, 96, 0.25);
             }
 
             &.light {
