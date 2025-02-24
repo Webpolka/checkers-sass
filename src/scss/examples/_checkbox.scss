@@ -1,0 +1,100 @@
+// ------------------------------------------------------- HTML ----------------------------------------------------------------
+//
+// <label class="checkbox">
+// <input class="checkbox__input" type="checkbox" name="sex" >
+// <span class="checkbox__box"></span>
+// <!-- <span class="checkbox__icon"></span> -->
+// <p class="checkbox__text">Первый</p>
+// </label>
+//
+//
+// <label class="checkbox">
+// <input class="checkbox__input" type="checkbox" name="age" checked>
+// <span class="checkbox__box"></span>
+// <!-- <span class="checkbox__icon"></span> -->
+// <p class="checkbox__text"> Второй</p>
+// </label>
+//
+//
+// <label class="checkbox">
+// <input class="checkbox__input" type="checkbox" name="type" disabled checked>
+// <span class="checkbox__box"></span>
+// <!-- <span class="checkbox__icon"></span> -->
+// <p class="checkbox__text">Третий</p>
+// </label>
+//
+//
+// <label class="checkbox">
+// <input class="checkbox__input" type="checkbox" name="loade" disabled>
+// <span class="checkbox__box"></span>
+// <!-- <span class="checkbox__icon"></span> -->
+// <p class="checkbox__text">Четвертый</p>
+// </label>
+//
+//---------------------------------------------------------- SCSS ---------------------------------------------------------------
+.checkbox {
+	display: inline-flex;
+	gap: 4px;
+	align-items: center;
+	text-wrap: nowrap;
+
+	// .checkbox__input
+	&__input {
+		appearance: none;
+		position: absolute;
+
+		/* Disabled */
+		&:disabled+.checkbox__box {
+			opacity: 0.7;
+		}
+
+		/* Focused */
+		&:focus+.checkbox__box {
+			box-shadow: 0 0 0 2px #00f;
+		}
+
+		/* Checked */
+		&:checked+.checkbox__box {
+			border-color: #fff;
+			background-color: #ff4040;
+			background-image: url(../../icons/down.svg);
+			background-repeat: no-repeat;
+			background-size: 80%;
+			background-position: center;
+		}
+
+		&:checked:focus+.checkbox__box {
+			outline: 1px solid #000;
+		}
+
+		&:checked:disabled+.checkbox__box {
+			opacity: 0.7;
+		}
+	}
+
+	// .checkbox__box
+	&__box {
+		display: block;
+		border: 2px solid #1a8c80;
+		border-radius: var(--radius) ;
+		width: 1rem;
+		height: 1rem;
+	}
+
+	&__icon {
+		display: block;
+		height: 1rem;
+		width: 1rem;
+		border: 1px solid #000;
+		border-radius: var(--radius) ;
+		background-color: grey;
+		// background-image: url(../../icons/answer.svg);
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
+	}
+
+	&__text {
+		display: block;
+	}
+}

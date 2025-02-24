@@ -1,0 +1,505 @@
+//--------------------------------------------------- JS in MODULES/ carousel-splide.js -------------------------------------------
+//
+//  ---- все опции настройки слайдера на сайте https://splidejs.com/guides/options/ -----------------------------------------------
+//
+// import carouselSplideInit from './modules/carousel-splide.js';
+// carouselSplideInit()
+// new Splide( '.splide', {
+//     type : 'loop',       // (slide, loop, fade) - соответственно (незацикленное, зацикленное, замена путем fade эффекта)
+//     direction: 'ltr' ,   // направление карусели (ltr, rtl, ttb) соответсвенно (слева на право, справа на лево, сверху вниз)
+//     drag: true,          // разрешать перетаскивать слайдер
+//     autoplay: true,      // включить авто перелистывание
+//     interval: 2000,      // интервал автоматического перелистывания слайдов в м\сек
+//     pauseOnHover: true,  // остановить автоматическое перелистывание при наведении курсора мыши
+
+//     perMove: 2,          // количество перемещаемых слайдов за раз
+//     perPage: 4,          // Количество слайдов 
+//     gap        : '1rem', // зазор между слайдами
+
+//     height: '400px',     // высота карусели
+//     padding: {           // (left, right) - для горизонтальной карусели (top, bottom - для вертикальной карусели)
+//          left: 0,
+//          right: 100
+//     },
+
+//     arrows: true,        // отображать стрелки
+//     heightRatio : 0.2,   // кэф высоты стрелок
+
+//     pagination: true,   // отображать пагинацию
+
+//     speed: 5000,         // скорость перелистывания в м\сек
+//     rewindSpeed: 5000,   // скорость перемотки слайдов
+
+//     rewind     : true,   // позволяет вообще перемотку слайдов
+//     rewindByDrag: true,  // позволяет делать перемотку слайдов перетаскиванием мыши
+
+//     breakpoints: {       // адаптивные опции
+//         0: {
+//             perPage: 1
+//         },
+//         800: {
+//             perPage: 2,
+//             height: '200px'
+//         },
+//         1200: {
+//             perPage: 3
+//         }
+//     }
+//   } ).mount();
+//
+// -------------------------------------------------- HTML ------------------------------------------------------------------------
+//
+// <section class="splide" aria-labelledby="carousel-heading">
+// <div class="splide-custom-nav">
+// <div class="splide-custom-nav__left">
+//   <h2 class='title-1'>Basic Structure Example</h2>
+// </div>
+
+// <div class="splide-custom-nav__right">
+//   <div class="splide__arrows"></div>      // если хотите чтоб стрелки и пагинация работали по дефолтным стилям то просто удалите их в html !
+//   <div class="splide__pagination"></div>  // скрипт сам втавит их куда ему нужно и применятся дефолтные стили ! 
+// </div>
+// </div>
+
+// <div class="splide__track">
+// <ul class="splide__list">
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-1.jpg" alt=""></div>
+//   </li>
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-2.jpg" alt=""></div>
+//   </li>
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-3.jpg" alt=""></div>
+//   </li>
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-4.jpg" alt=""></div>
+//   </li>
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-5.jpg" alt=""></div>
+//   </li>
+//   <li class="splide__slide">
+//     <div class="ibg"><img src="images/post-6.jpg" alt=""></div>
+//   </li>
+// </ul>
+// </div>
+// </section>
+//
+//---------------------------------------------------------------------- CSS -----------------------------------------------------------------------
+.splide{
+    --arrowSize: 3rem;
+    --paginationSize: 2rem;
+    --paginationBg: rgb(237, 5, 5);
+    .ibg{
+        min-height: 100vh;
+
+    }
+}
+// --------------------------------------------- ЗДЕСЬ МОЖНО ДЕЛАТЬ СТИЛИЗОВАТЬ КАСТОМНУЮ НАВИГАЦИЮ !!! --------------------------------------------
+// --------------------------------------------- можете перенести этот кусочек кода к себе в файл стилизации страницы и там править ----------------
+.splide-custom-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    &__left, 
+    &__right{
+        display: inline-flex;
+        align-items: center;
+    }
+    &__right{
+        position: relative;
+        padding-left: var(--arrowSize);
+        padding-right: var(--arrowSize);      
+    }
+    .splide__arrows{
+        min-height: var(--arrowSize);
+        .splide__arrow--prev{
+            left: 0;
+        }
+        .splide__arrow--next{
+            right: 0;
+        }
+    }
+    .splide__pagination {
+       display: inline-flex;
+       position: relative;
+       bottom:0;      
+       .splide__pagination__page {
+        width: var(--paginationSize);
+        height: var(--paginationSize);
+        margin: calc(var(--paginationSize) / 2);
+        background: var(--paginationBg);      
+    }
+    }
+}
+//------------------------------------------ конец кастомной стилизации -----------------------------------------------------------------------
+.splide__container {
+    box-sizing: border-box;
+    position: relative
+}
+
+.splide__list {
+    backface-visibility: hidden;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important
+}
+
+.splide.is-initialized:not(.is-active) .splide__list {
+    display: block
+}
+
+.splide__pagination {
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 0;
+    pointer-events: none
+}
+
+.splide__pagination li {
+    display: inline-block;
+    line-height: 1;
+    list-style-type: none;
+    margin: 0;
+    pointer-events: auto
+}
+
+.splide:not(.is-overflow) .splide__pagination {
+    display: none
+}
+
+.splide__progress__bar {
+    width: 0
+}
+
+.splide {
+    position: relative;
+    visibility: hidden;
+}
+
+.splide.is-initialized,
+.splide.is-rendered {
+    visibility: visible
+}
+
+.splide__slide {
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    list-style-type: none !important;
+    margin: 0;
+    position: relative
+}
+
+.splide__slide img {
+    vertical-align: bottom
+}
+
+.splide__spinner {
+    animation: splide-loading 1s linear infinite;
+    border: 2px solid #999;
+    border-left-color: transparent;
+    border-radius: 50%;
+    bottom: 0;
+    contain: strict;
+    display: inline-block;
+    height: 20px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px
+}
+
+.splide__sr {
+    clip: rect(0 0 0 0);
+    border: 0;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+.splide__toggle.is-active .splide__toggle__play,
+.splide__toggle__pause {
+    display: none
+}
+
+.splide__toggle.is-active .splide__toggle__pause {
+    display: inline
+}
+
+.splide__track {
+    overflow: hidden;
+    position: relative;
+    z-index: 0
+}
+
+@keyframes splide-loading {
+    0% {
+        transform: rotate(0)
+    }
+
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+.splide__track--draggable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.splide__track--fade>.splide__list>.splide__slide {
+    margin: 0 !important;
+    opacity: 0;
+    z-index: 0
+}
+
+.splide__track--fade>.splide__list>.splide__slide.is-active {
+    opacity: 1;
+    z-index: 1
+}
+
+.splide--rtl {
+    direction: rtl
+}
+
+.splide__track--ttb>.splide__list {
+    display: block
+}
+
+.splide__arrow {
+    -ms-flex-align: center;
+    align-items: center;
+    background: #ccc;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    opacity: .7;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    height: var(--arrowSize);
+    width: var(--arrowSize)  ;
+}
+
+.splide__arrow svg {
+    fill: #000;
+    height: 2em;
+    width: 2em
+}
+
+.splide__arrow:hover:not(:disabled) {
+    opacity: .9
+}
+
+.splide__arrow:disabled {
+    opacity: .3
+}
+
+.splide__arrow:focus-visible {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+// -------------------------------------- здесь можно задать смешение влево вправо для стрелок ---------------------------------------------
+.splide__arrow--prev {
+    left: 1em
+}
+
+.splide__arrow--prev svg {
+    transform: scaleX(-1)
+}
+
+.splide__arrow--next {
+    right: 1em
+}
+
+.splide.is-focus-in .splide__arrow:focus {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+// ----------------------------------------- Здесь можно поиграть со стилями пагинации ---------------------------------------------------
+.splide__pagination {
+    bottom: .5em;
+    left: 0;
+    padding: 0 1em;
+    position: absolute;
+    right: 0;
+    z-index: 1
+}
+
+.splide__pagination__page {
+    background: var(--paginationBg);
+    border: 0;
+    border-radius: 50%;
+    display: inline-block; 
+    opacity: .7;
+    padding: 0;
+    position: relative;
+    transition: transform .2s linear;  
+    width: var(--paginationSize);
+    height: var(--paginationSize);
+    margin: calc(var(--paginationSize) / 2);
+}
+
+.splide__pagination__page.is-active {
+    background:var(--paginationBg);
+    transform: scale(1.4);
+    z-index: 1
+}
+
+.splide__pagination__page:hover {
+    cursor: pointer;
+    opacity: .9
+}
+
+.splide__pagination__page:focus-visible {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+.splide.is-focus-in .splide__pagination__page:focus {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+.splide__progress__bar {
+    background: #ccc;
+    height: 3px
+}
+
+.splide__slide {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
+
+.splide__slide:focus {
+    outline: 0
+}
+
+@supports(outline-offset:-3px) {
+    .splide__slide:focus-visible {
+        outline: 3px solid #0bf;
+        outline-offset: -3px
+    }
+}
+
+@media screen and (-ms-high-contrast:none) {
+    .splide__slide:focus-visible {
+        border: 3px solid #0bf
+    }
+}
+
+@supports(outline-offset:-3px) {
+    .splide.is-focus-in .splide__slide:focus {
+        outline: 3px solid #0bf;
+        outline-offset: -3px
+    }
+}
+
+@media screen and (-ms-high-contrast:none) {
+    .splide.is-focus-in .splide__slide:focus {
+        border: 3px solid #0bf
+    }
+
+    .splide.is-focus-in .splide__track>.splide__list>.splide__slide:focus {
+        border-color: #0bf
+    }
+}
+
+.splide__toggle {
+    cursor: pointer
+}
+
+.splide__toggle:focus-visible {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+.splide.is-focus-in .splide__toggle:focus {
+    outline: 3px solid #0bf;
+    outline-offset: 3px
+}
+
+.splide__track--nav>.splide__list>.splide__slide {
+    border: 3px solid transparent;
+    cursor: pointer
+}
+
+.splide__track--nav>.splide__list>.splide__slide.is-active {
+    border: 3px solid #000
+}
+
+.splide__arrows--rtl .splide__arrow--prev {
+    left: auto;
+    right: 1em
+}
+
+.splide__arrows--rtl .splide__arrow--prev svg {
+    transform: scaleX(1)
+}
+
+.splide__arrows--rtl .splide__arrow--next {
+    left: 1em;
+    right: auto
+}
+
+.splide__arrows--rtl .splide__arrow--next svg {
+    transform: scaleX(-1)
+}
+
+.splide__arrows--ttb .splide__arrow {
+    left: 50%;
+    transform: translate(-50%)
+}
+
+.splide__arrows--ttb .splide__arrow--prev {
+    top: 1em
+}
+
+.splide__arrows--ttb .splide__arrow--prev svg {
+    transform: rotate(-90deg)
+}
+
+.splide__arrows--ttb .splide__arrow--next {
+    bottom: 1em;
+    top: auto
+}
+
+.splide__arrows--ttb .splide__arrow--next svg {
+    transform: rotate(90deg)
+}
+
+.splide__pagination--ttb {
+    bottom: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    left: auto;
+    padding: 1em 0;
+    right: .5em;
+    top: 0
+}

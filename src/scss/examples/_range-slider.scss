@@ -1,0 +1,86 @@
+
+// ----------------------------------------------------- HTML -------------------------------------------------------------------
+//
+// <div class="range">
+// <div class="grid">
+//     <div class="ingrid-2">
+//         <input type="text" id="minRange" readonly="">
+//     </div>
+//     <div class="ingrid-2">
+//         <input type="text" id="maxRange" readonly="">
+//     </div>
+// </div>
+// <div id="slider-range"></div>
+// </div>
+//
+// ------------------------------------------------------- JS ------------------------------------------------------------------
+//
+// function rangeSlider() {
+//     $("#slider-range").slider({
+//         range: true,
+//         min: 0,
+//         max: 500,
+//         values: [75, 300],
+//         slide: function (event, ui) {
+//             $("#minRange").val(ui.values[0] + " Руб");
+//             $("#maxRange").val(ui.values[1] + " Руб");
+//         }
+//     });
+//     $("#minRange").val($("#slider-range").slider("values", 0) + " Руб");
+//     $("#maxRange").val($("#slider-range").slider("values", 1) + " Руб");
+// }
+//
+// export default rangeSlider;
+//
+// -------------------------------------------------------- SCSS -----------------------------------------------------------------
+.range {   
+    border: 1px solid #000; 
+
+    input {
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 1rem;
+        background-color: rgb(0, 0, 0, 0.05);
+        border: 1px solid green;
+    }
+
+    #slider-range {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    //------------------------------------ UI Range Slider Styles -----------------------
+    --rangeHorizontalBg-: grey;
+    --rangeHorizontalHeight-: 1rem;
+    --rangeHorizontalBorder-: 1px red solid;
+    --rangeHorizontalBorderRadius-: 1rem;
+
+    --rangeHandleWidth-: 2rem;
+    --rangeHandleHeight-: 3rem;
+    --rangeHandleBg-: violet;
+    --rangeHandleBorder-: 1px red solid;
+    --rangeHandleBorderRadius-: violet;
+
+    --rangeBgRange-: blue;
+
+    .ui-slider.ui-slider-horizontal {
+        background: var( --rangeHorizontalBg-);
+        height:var(--rangeHorizontalHeight-);
+        border:var(--rangeHorizontalBorder-);
+        border-radius: var(--rangeHorizontalBorderRadius-);
+    }
+    .ui-slider .ui-slider-handle {
+        width: var( --rangeHandleWidth-); 
+        height: var(--rangeHandleHeight-);       
+        top: calc((var(--rangeHorizontalHeight-) / 2 - var(--rangeHandleHeight-) / 2) - 1px) ;
+        border: var(--rangeHandleBorder-);  
+        border-radius: var(--rangeHandleBorderRadius-);        
+        background: var(--rangeHandleBg-);
+        cursor:pointer;
+    }
+    .ui-slider .ui-slider-range {
+        background: var(--rangeBgRange-);
+        height:100%;
+    }
+}

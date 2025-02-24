@@ -1,0 +1,167 @@
+// --------------------------------------------JS в файле modules/product-gallery.js ---------------------------------------------
+//
+// import productGallery from './modules/product-gallery.js';
+// import { productTabs } from './modules/product-gallery.js';
+//
+// productGallery();
+// new productTabs('product-tabs', {
+// 	onChange: (data) => {
+// 		console.log(data);
+// 	},
+// });
+//
+//------------------------------------------------------ HTML --------------------------------------------------------------------
+//
+// <div class="grid product">
+// <div class="ingrid-30">
+//     <div class="product-tabs" data-tabs="product-tabs">
+//         <div class="product-tabs__content product__gallery">
+//             <a class="product-tabs__panel" href="../../images/opt-1.jpeg" data-source="" title="Картинка-1">
+//                 <span class="ibg"><img src="../../images/opt-1.jpeg" alt="pic-1"></span>
+//             </a>
+
+//             <a class="product-tabs__panel" href="../../images/opt-2.jpeg" data-source="" title="Картинка-2">
+//                 <span class="ibg"><img src="../../images/opt-2.jpeg" alt="pic-2"></span>
+//             </a>
+
+//             <a class="product-tabs__panel" href="../../images/opt-3.jpeg" data-source="" title="Картинка-3">
+//                 <span class="ibg"><img src="../../images/opt-3.jpeg" alt="pic-3"></span>
+//             </a>
+
+//             <a class="product-tabs__panel" href="../../images/opt-1.jpeg" data-source="" title="Картинка-4">
+//                 <span class="ibg"><img src="../../images/opt-1.jpeg" alt="pic-4"></span>
+//             </a>
+//         </div>
+
+//         <div class="product__slider owl-carousel product-tabs__nav">
+//             <button class="product__slide product-tabs__trigger" type="button">
+//                 <span class="ibg"><img src="../../images/opt-1.jpeg" alt="pic-1"></span>
+//             </button>
+//             <button class="product__slide product-tabs__trigger" type="button">
+//                 <span class="ibg"><img src="../../images/opt-2.jpeg" alt="pic-2"></span>
+//             </button>
+//             <button class="product__slide product-tabs__trigger" type="button">
+//                 <span class="ibg"><img src="../../images/opt-3.jpeg" alt="pic-3"></span>
+//             </button>
+//             <button class="product__slide product-tabs__trigger" type="button">
+//                 <span class="ibg"><img src="../../images/opt-1.jpeg" alt="pic-1"></span>
+//             </button>
+//         </div>
+//         <div class="product__panel">
+//             <div class="myNav"></div>
+//             <div class="myDots"></div>
+//         </div>
+//     </div>
+
+// </div>
+// <div class="ingrid-70">
+//     <h2 class="title-1">Здесь будет описание продукта и цена !</h2>
+// </div>
+// </div>
+//
+//-------------------------------------------------------SCSS ---------------------------------------------------------------------
+@import "../config/mixins";
+
+
+.product {
+    --sliderHeight-: 6rem;
+    --imageHeight-: 10rem;
+    --navButtonHeight-: 1.5rem;
+
+    //-------------- Настройки слайдера в файле product-gallery.js ------------------
+    &__slider {    
+
+        button {
+            display: block;
+            width: 100%;
+            min-height: var(--sliderHeight-);
+        }
+
+        .ibg {
+            display: block;
+            width: 100%;
+            min-height: var(--sliderHeight-);
+        }
+    }
+    // ------ сами кнопки табов слайдера(Thumbnails) ------
+    &-tabs {
+        &__panel {
+            display: none;
+            animation: fade-up-big 0.4s forwards;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+   
+     // -----Кнопки Вперед Назад на слайдере ---------
+    &__panel {       
+        position: relative;
+
+        .myNav .owl-prev,
+        .myNav .owl-next {
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            position: absolute;
+            height: var(--navButtonHeight-);
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-accent);
+            padding: 0 0.3rem 0.3rem 0.3rem;
+            background-color: #fff;
+            border: 1px solid var(--color-accent);
+            border-radius: 5rem;
+            bottom: calc((var(--sliderHeight-) / 2 - var(--navButtonHeight-) / 2) - 1px) ;         
+        }
+        .myNav .owl-prev {           
+            left: -0.5rem;
+        }
+        .myNav .owl-next {           
+            right: -0.5rem;
+        }
+        
+        .myDots {
+            position: absolute;
+            display: none;
+        }
+    }
+
+    &__gallery {
+        .ibg {
+            display: block;
+            width: 100%;
+            min-height: var(--imageHeight-);
+        }
+
+        .image-source-link {
+            color: #98C3D1;
+        }
+
+        .mfp-with-zoom .mfp-container,
+        .mfp-with-zoom.mfp-bg {
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            /* ideally, transition speed should match zoom duration */
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+
+        .mfp-with-zoom.mfp-ready .mfp-container {
+            opacity: 1;
+        }
+
+        .mfp-with-zoom.mfp-ready.mfp-bg {
+            opacity: 0.8;
+        }
+
+        .mfp-with-zoom.mfp-removing .mfp-container,
+        .mfp-with-zoom.mfp-removing.mfp-bg {
+            opacity: 0;
+        }
+    }
+}

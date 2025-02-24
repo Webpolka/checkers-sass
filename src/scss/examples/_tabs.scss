@@ -1,0 +1,61 @@
+// ---------------------------------------------- основной JS в modules/tabs.js -------------------------------------------
+//
+// import { Tabs } from './modules/tabs';
+//
+// new Tabs('tabs-example', {
+// 	onChange: (data) => {
+// 		console.log(data);
+// 	},
+// });
+//
+// ------------------------------------------------------ HTML -------------------------------------------------------------
+//
+// <div class="tabs" data-tabs="tabs-example">
+//     <div class="tabs__nav">
+//         <button class="tabs__trigger" type="button">Таб 1</button>
+//         <button class="tabs__trigger" type="button">Таб 2</button>
+//         <button class="tabs__trigger" type="button">Таб 3</button>
+//     </div>
+
+//     <div class="tabs__content">
+//         <div class="tabs__panel">Панель 1</div>
+//         <div class="tabs__panel">Панель 2</div>
+//         <div class="tabs__panel">Панель 3</div>
+//     </div>
+// </div>
+//
+// ------------------------------------------------------ SCSS --------------------------------------------------------------
+@import "../config/mixins";
+.tabs {
+	display: flex;
+	gap: rem(10);
+	flex-direction: column;
+
+	// .tabs__nav
+	&__nav {
+		display: flex;
+		gap: rem(10);
+		align-items: center;
+	}
+
+	// .tabs__trigger
+	&__trigger {
+		padding: rem(10);
+		transition: var(--transition);
+
+		&.active {
+			color: #fff;
+			background-color: #ff4040;
+		}
+	}
+
+	// .tabs__panel
+	&__panel {
+		display: none;
+		animation: fade-up-big 0.4s forwards;
+
+		&.active {
+			display: block;
+		}
+	}
+}

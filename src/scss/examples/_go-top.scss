@@ -1,0 +1,53 @@
+// ----------------------------------------------------- JS in MODULES/go-top.js -------------------------------------------------------
+//
+// import goTop from './modules/go-top.js';    
+// goTop('');
+//
+// ----------------------------------------------------------- HTML ---------------------------------------------------------------------
+//
+// <div class="go-top"></div>
+//
+// ------------------------------------------------------------- SCSS -------------------------------------------------------------------
+.go-top {
+    --size: 2.5rem;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    right: 1.875rem;
+    bottom: 1.875rem;
+    z-index: -100;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--color-btn);
+
+    svg {
+        width: calc(var(--size) * 0.6);
+        height: calc(var(--size) * 0.6);
+        fill: rgb(251, 248, 248);
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:hover {
+
+        // background-color: #fff;
+        svg {
+            fill: rgb(255, 255, 255);
+            transition: all 0.3s ease-in-out;
+        }
+
+        background-color:var(--color-btn-hover);
+    }
+
+    &--show {
+        z-index: 100;
+        transition: all 0.3s ease-in-out;
+        visibility: visible;
+        opacity: 1;
+    }
+}

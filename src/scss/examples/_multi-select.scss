@@ -1,0 +1,380 @@
+.multi-select {
+// ----------------------------------------------------- HTML ------------------------------------------------------------------------
+//
+		// <label for="fruits">Fruits</label>
+        // <select id="fruits" name="fruits" data-placeholder="Добавить фруктики..." multiple data-multi-select>
+        //   <option value="Apple">Apple</option>
+        //   <option value="Banana">Banana</option>
+        //   <option value="Blackberry">Blackberry</option>
+        //   <option value="Blueberry">Blueberry</option>
+        //   <option value="Cherry">Cherry</option>
+        //   <option value="Cranberry">Cranberry</option>
+        //   <option value="Grapes">Grapes</option>
+        //   <option value="Kiwi">Kiwi</option>
+        //   <option value="Mango">Mango</option>
+        //   <option value="Orange">Orange</option>
+        //   <option value="Peach">Peach</option>
+        //   <option value="Pear">Pear</option>
+        //   <option value="Pineapple">Pineapple</option>
+        //   <option value="Raspberry">Raspberry</option>
+        //   <option value="Strawberry">Strawberry</option>
+        //   <option value="Watermelon">Watermelon</option>
+        // </select>
+//
+// ------------------------------------------------------ JS in modules/multi-select.js -----------------------------------------------
+//
+
+//
+// ------------------------------------------------------- SCSS ----------------------------------------------------------------------
+
+	--caret-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+	--checkbox-icon: url(../../icons/star-pull.svg);
+	// -----------------------------------------------------  ОБЩИЕ НАСТРОЙКИ МУЛЬТИСЕЛЕКТА ------------------------------------------------------------
+	--font-size: 1rem; // общий размер шрифта 
+
+	--color-multi-main: #920a65; // цвет основной текста	
+	--color-placeholder: #d61010; // цвет placeholder верхней всегда открытой части мультиселекта
+	--color-option-text: inherit; // цвет неактивного текста нижних выпадающих пунктов 
+	--color-option-text-active: #aec940; // цвет активного текста нижних выпадающих пунктов
+	--color-search-placeholder: #c5400b; // цвет placeholder поля поиска в выпадающем меню  
+	--hover-bg-color: grey; // цвет фона пункта при наведении курсора мыши
+
+	--color-scrollbar-track: white;
+	--color-scrollbar-thumb: #40c979;
+	--color-scrollbar-thumb-border-radius: 5px;
+	--color-scrollbar-thumb-active: var(--color-multi-main);
+
+
+	// ------------------------------------- ВЕРХНЯЯ ОСНОВНАЯ ЧАСТЬ МУЛЬТИСЕЛЕКТА КОТОРАЯ ВСТАВЛЯЕТЬСЯ В ВЕРСТКУ ---------------------------------------------
+	--top-header-padding-top: 1rem; // паддинг сверху верхней видимой части
+	--top-header-padding-bottom: 1rem; // паддинг снизу верхней видимой части
+	--top-header-padding-left: 1rem; // паддинг слева верхней видимой части
+	--top-header-padding-right: 1rem; // паддинг справа верхней видимой части
+	--top-header-border: 1px red solid; // бордер
+	--top-header-border-color-active: #c1c9d0; // цвет активного бордера
+	--top-header-border-radius: 0; // закругление бордера
+	--top-header-arrow-size: var(--font-size); // размер каретки 
+
+	// -----------ВЫБРАННЫЙ ПУНКТ КОТОРЫЙ ОТОБРАЖАЕТЬСЯ СВЕРХУ ------------
+	--top-header-option-bg: #40c979; // цвет фона выбранных пуктов которые отображаються после выбора в верхней части
+	--top-header-option-padding-top: 1rem; // паддинг сверху
+	--top-header-option-padding-bottom: 1rem; // паддинг снизу
+	--top-header-option-padding-left: 1rem; // паддинг слева
+	--top-header-option-padding-right: 1rem; // паддинг справа
+	--top-header-option-border: 1px #40c979 solid; // бордер
+	--top-header-option-border-radius: 0.5rem; // закругление бордера
+
+	// ---------------------------------------------------- НИЖНЯЯ ВЫПАДАЮЩАЯ ЧАСТЬ МУЛЬТИСЕЛЕКТА  ------------------------------------------------------------
+	--bottom-dropdown-bg: #c1c9d0; // фон выпадающего меню
+	--bottom-dropdown-max-height: 40vh; // максимальная высота выпадающего мультиселекта
+	--bottom-dropdown-margin-top: 0rem; // отступ сверху
+	--bottom-dropdown-padding: 0.3rem; // паддинг всего выпадающего мультиселекта
+	--bottom-dropdown-border-radius: 1rem; // закругление всего
+	--bottom-dropdown-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // затемнение
+	
+	// ---------------- ПУНКТ НИЖНЕГО МУЛЬТИСЕЛЕКТА -----------------------
+	--bottom-option-padding-top: 1rem; // паддинг сверху
+	--bottom-option-padding-bottom: 1rem; // паддинг снизу
+	--bottom-option-padding-left: 1rem; // паддинг слева
+	--bottom-option-padding-right: 1rem; // паддинг справа
+	--bottom-option-border-radius: 0; // закругление бордера
+	--bottom-option-height: calc(var(--font-size) + var(--bottom-option-padding-top) + var(--bottom-option-padding-bottom + 2px)); // вычисляется автоматически
+
+	// ---------------- ПУНКТ ПОИСК НИЖНЕГО МУЛЬТИСЕЛЕКТА ----------------
+	--bottom-search-color-bg: #d3baba ; // цвет фона формы поиска
+	--bottom-search-padding: 1rem; // паддинг общий
+	--bottom-search-border: 1px solid #9e2b05; // бордер
+	--bottom-search-border-radius: 0; // закругление бордера
+	--bottom-search-margin: 1rem; // отспупы общий	
+    --bottom-search-boxshadow: 1px -1px 20px 13px rgba(17, 35, 15, 0.22); // боксшадов для формы поиска
+
+
+	// --------------- ЧЕКБОКС ПУНКТА НИЖНЕГО МУЛЬТИСЕЛЕКТА --------------
+	--bottom-option-radio-margin-right: 1.5rem; // отступ справа от чекбокса
+	--bottom-option-radio-size: var(--font-size); // размер чекбокса
+	--bottom-option-radio-border-color: rgb(16, 154, 28); // цвет бордера
+	--bottom-option-radio-border-radius: 0rem; // закругление бордера 
+	--bottom-option-radio-active-bg: #40c979; // фон активного чекбокса
+	--bottom-option-radio-active-border-color: #40c979; // цвет бордера активного чекбокса
+
+	// --------------- ПУНКТ ВЫБРАТЬ ВСЕ НИЖНЕГО МУЛЬТИСЕЛЕКТА ----------
+	--bottom-option-all-padding: 1rem 1rem; // паддинг
+	--bottom-option-all-height: var(--bottom-option-height); // высота
+	--bottom-option-all-border-bottom: 1px solid #f1f3f5; // нижний бордер для отделения
+	--bottom-option-all-border-radius: 0; // закругление
+
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	user-select: none;
+
+	.multi-select-header {
+		border: var(--top-header-border);
+		padding-top: var(--top-header-padding-top);
+		padding-bottom: var(--top-header-padding-bottom);
+		padding-left: var(--top-header-padding-left);
+		padding-right: var(--top-header-padding-right);
+		overflow: hidden;
+		gap: 7px;
+		min-height: calc(1.6 * var(--top-header-padding-top) + var(--top-header-padding-bottom) + var(--top-header-option-padding-top) + var(--top-header-option-padding-bottom) + var(--font-size));
+		display: flex;
+		flex-wrap: wrap;
+		box-sizing: border-box;
+		align-items: center;
+		border-radius: var(--top-header-border-radius);
+		cursor: pointer;	
+		align-items: center;
+		width: 100%;
+		font-size: var(--font-size);
+		color: var(--color-multi-main);
+
+		&::after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 1rem;
+			transform: translateY(-50%);
+			background-image: var(--caret-icon);
+			width: var(--top-header-arrow-size);
+			height: var(--top-header-arrow-size);
+			transition: transform 0.3s ease-in-out;
+		}
+
+		.multi-select-header-placeholder {
+			color: var(--color-placeholder);
+		}
+
+		.multi-select-header-option {
+			display: inline-flex;
+			align-items: center;		
+			background-color: var(--top-header-option-bg);
+			font-size: var(--font-size);
+			padding-left: var(--top-header-option-padding-left);
+			padding-right: var(--top-header-option-padding-right);
+			padding-top: var(--top-header-option-padding-top);
+			padding-bottom: var(--top-header-option-padding-bottom);
+			border-radius: var(--top-header-option-border-radius);
+		}
+
+		.multi-select-header-max {
+			font-size: var(--font-size);
+			color: var(--color-placeholder);
+		}
+	}
+
+	.multi-select-header.multi-select-header-active {
+		border-color: var(--top-header-border-color-active);
+
+		&::after {
+			transform: translateY(-50%) rotate(180deg);
+		}
+
+		+ {
+			.multi-select-options {				
+				opacity: 1;					
+				width: inherit;
+				height: var(--bottom-dropdown-max-height);
+				margin-top: var(--bottom-dropdown-margin-top);				
+				
+			}
+		}
+	}
+
+	.multi-select-options {		
+		display: flex;		
+		align-content: flex-start;
+		opacity: 0;		
+		height: 0;		
+		overflow: hidden;
+		width: inherit;
+		transition: all 1s ease-in-out;
+
+		box-sizing: border-box;
+		flex-flow: wrap;
+		
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		z-index: 999;	
+		background-color: var(--bottom-dropdown-bg);
+		border-radius: var(--bottom-dropdown-border-radius);
+		padding: var(--bottom-dropdown-padding);
+		// box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		border: none;
+		max-height: var(--bottom-dropdown-max-height);
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		&::-webkit-scrollbar {
+			width: 0.5rem;
+			background-color: var(--color-page-bg);
+		}
+
+		&::-webkit-scrollbar-track {
+			background: var(--color-page-bg);
+			border: 1px solid var(--color-scrollbar-thumb);
+			border-radius: 1rem;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: var(--color-scrollbar-thumb);
+			border-radius: var(--color-scrollbar-thumb-border-radius);
+			cursor: pointer;
+
+			&:hover {
+				background: var(--color-scrollbar-thumb-active);
+			}
+		}
+
+		.multi-select-option {
+			padding-top: var(--bottom-option-padding-top);
+			padding-bottom: var(--bottom-option-padding-bottom);
+			padding-left: var(--bottom-option-padding-left);
+			padding-right: var(--bottom-option-padding-right);
+
+			height: var(--bottom-option-height);
+
+			.multi-select-option-radio {
+				margin-right: var(--bottom-option-radio-margin-right);
+				height: var(--bottom-option-radio-size);
+				width: var(--bottom-option-radio-size);
+				border: 1px solid var(--bottom-option-radio-border-color);
+				border-radius: var(--bottom-option-radio-border-radius);
+			}
+
+			.multi-select-option-text {
+				box-sizing: border-box;
+				flex: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: var(--color-option-text);
+				font-size: var(--font-size);
+				line-height: calc(var(--font-size) * 1.2);
+			}
+
+			&:hover {
+				background-color: var(--hover-bg-color);
+			}
+
+			&:active {
+				background-color: var(--hover-bg-color);
+			}
+		}
+
+		.multi-select-all {
+			padding: var(--bottom-option-all-padding);
+			height: var(--bottom-option-all-height);
+			border-bottom: var(--bottom-option-all-border-bottom);
+			border-radius: var(--bottom-option-all-border-radius);
+
+			.multi-select-option-radio {
+				margin-right: var(--bottom-option-radio-margin-right);
+				height: var(--bottom-option-radio-size);
+				width: var(--bottom-option-radio-size);
+				border: 1px solid var(--bottom-option-radio-border-color);
+				border-radius: var(--bottom-option-radio-border-radius);
+			}
+
+			.multi-select-option-text {
+				box-sizing: border-box;
+				flex: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: var(--color-option-text);
+				font-size: var(--font-size);
+				line-height: calc(var(--font-size) * 1.25);
+			}
+
+			&:hover {
+				background-color: var(--hover-bg-color);
+			}
+
+			&:active {
+				background-color: var(--hover-bg-color);
+			}
+		}
+
+		.multi-select-option.multi-select-selected {
+			.multi-select-option-radio {
+				border-color: var(--bottom-option-radio-active-border-color);
+				background-color: var(--bottom-option-radio-active-bg);
+				background-image: var(--checkbox-icon);
+				background-repeat: no-repeat;
+				background-size: 60%;
+				background-position: center center;
+			}
+
+			.multi-select-option-text {
+				color: var(--color-option-text-active);
+			}
+		}
+
+		.multi-select-all.multi-select-selected {
+			.multi-select-option-radio {
+				border-color: var(--bottom-option-radio-active-border-color);
+				background-color: var(--bottom-option-radio-active-bg);
+				background-image: var(--checkbox-icon);
+				background-repeat: no-repeat;
+				background-size: 60%;
+				background-position: center;
+			}
+
+			.multi-select-option-text {
+				color: var(--color-option-text-active);
+			}
+		}
+
+		.multi-select-search {
+			align-self: start;
+			padding: var(--bottom-search-padding);
+			border: var(--bottom-search-border);
+			border-radius: var(--bottom-search-border-radius);
+			margin: var(--bottom-search-margin);
+			width: 100%;
+			outline: none;
+			font-size: var(--font-size);
+			background-color: var(--bottom-search-color-bg);
+			&:focus{
+                box-shadow: var(--bottom-search-boxshadow);
+                outline: 1px solid var(--color-multi-main);
+            }
+			&::placeholder {
+				color: var(--color-search-placeholder);
+			}
+		}
+	}
+
+	.multi-select-option {
+		display: flex;
+		align-self: start;
+		flex-wrap: wrap;
+		box-sizing: border-box;
+		align-items: center;
+		border-radius: var(--bottom-option-border-radius);
+		cursor: pointer;
+		align-items: center;
+		width: 100%;
+		font-size: var(--font-size);
+		color: var(--color-multi-main);
+	}
+
+	.multi-select-all {
+		display: flex;
+		align-self: start;
+		flex-wrap: wrap;
+		box-sizing: border-box;
+		align-items: center;
+		border-radius: 5px;
+		cursor: pointer;
+		align-items: center;
+		width: 100%;
+		font-size: var(--font-size);
+		color: var(--color-multi-main);
+	}
+}

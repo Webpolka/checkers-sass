@@ -1,0 +1,46 @@
+@use "sass:math";
+
+/** Обнуление */
+@import "config/reset";
+// ----- Подключаем сетку Bootstrap -------
+@import "libs/bootstrap-grid";
+
+/**
+* Подключение шрифтов локально из папки "./src/fonts"
+*/
+@import "config/fonts";
+
+/** Подключение переменных */
+@import "config/root";
+
+/**
+* Подключение sass function и mixins и extends стилей
+*/
+@import "config/functions";
+@import "config/mixins";
+@import "config/placeholders";
+
+@import "config/typography";
+
+/**
+* Библиотеки
+* раскомментировать для использования
+*/
+// @import 'libs/aos';
+// @import 'libs/swiper';
+
+/**
+* Общие параметры, шаблоны(заготовки) и вспомогательные классы
+*/
+@import "config/base";
+
+/**
+* БЕМ блоки используемые во всё проекте
+*/
+@import "config/utils";
+
+
+/**
+* Подключение стилей отдельных блоков и секций
+*/
+@import "components/*.scss";

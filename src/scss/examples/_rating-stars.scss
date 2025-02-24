@@ -1,0 +1,86 @@
+// ------------------------------------------ JS in MODULES/rating-stars.js --------------------------------------------------------------------------
+//
+// import ratingStars from './modules/rating-stars.js';
+// ratingStars('1',
+//             'Ваша оценка',    
+//             '<i class="fa-solid fa-star"></i>');  
+//
+// -------------------------------------------------- HTML ------------------------------------------------------------------------
+//
+//   <div rating-id="1" class="rating-stars"></div>
+//
+// ------------------------------------------- комментарий к HTML -----------------------------------------------------------------
+//
+//  /* В итоге в браузере выводиться вот такой вот код и JavaScript создаст инпут для формы в DOM, в котором ID будет
+//  иметь вид id="rating-[ID]", пример id="rating-1"
+//
+// <div rating-id="1" class="rating-stars">
+// <label for="rating-1">Зацени</label>
+// <div class="rating-visual">
+//     <div data-rating="1" class="star-visual selected"><i class="fa-solid fa-star"></i></div>
+//     <div data-rating="2" class="star-visual selected"><i class="fa-solid fa-star"></i></div>
+//     <div data-rating="3" class="star-visual"><i class="fa-solid fa-star"></i></div>
+//     <div data-rating="4" class="star-visual"><i class="fa-solid fa-star"></i></div>
+//     <div data-rating="5" class="star-visual"><i class="fa-solid fa-star"></i></div>
+// </div>
+// <input type="number" name="rating-input" id="rating-1" style="display: none;">
+// </div>
+//  */
+//
+// ЕСЛИ желаете использовать Font Awesome не забудьте подключить его в шапке сайта
+// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> 
+//
+//---------------------------------------------------- SCSS ------------------------------------------------------------------------
+.rating-stars {
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid grey;
+}
+
+.rating-visual {
+    --size: 1rem;
+    --kof: 3; // star margin = size / kof
+    --color-hovered: rgb(114, 220, 100);
+    --color-selected: rgb(225, 164, 10, 1);
+
+    label {
+        display: block;
+        // color: var(--color-main);
+    }
+
+    .star-visual {
+        display: inline-flex;
+        cursor: pointer;
+
+        i,
+        svg {
+            width: var(--size);
+            height: var(--size);
+            font-size: var(--size);
+            fill: var(--color-main);
+            color: var(--color-main);
+            ;
+        }
+    }
+
+    .star-visual:not(:last-child) {
+        padding-right: calc(var(--size) / var(--kof));
+    }
+
+    .star-visual.hovered {
+
+        i,
+        svg {
+           color: var(--color-hovered);
+            fill: var(--color-hovered);
+        }
+    }
+
+    .star-visual.selected {
+        i,
+        svg {
+            color: var(--color-selected);
+            fill: var(--color-selected);
+        }
+    }
+}

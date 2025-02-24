@@ -1,0 +1,88 @@
+// ------------------------------------------- JS в файле modules/popup-manager.js ----------------------------------------------
+// --------------------------------------------- не забудь подключить в main.js -------------------------------------------------
+// ----------------------------------------------------------HTML ---------------------------------------------------------------
+//
+// <button class="btn" data-type="popup-1" type="button">Открыть попап</button>
+//
+// <div class="popup" data-popup="popup-1" data-close-overlay>
+// 	<div class="popup__wrapper" data-close-overlay>
+// 		<div class="popup__content">
+// 			<button class="popup__close button-close" type="button">x</button>
+// 			<div class="popup__body">
+// 				<h2 class="title-1">Базовый пример модального окна</h2>
+// 				<p>Здесь какой нибудь текст !</p>
+// 			</div>
+// 		</div>
+// 	</div>
+// </div>
+//
+//-----------------------------------------------------------SCSS ----------------------------------------------------------------
+@import "../config/mixins";
+
+.popup {
+	$white-100: #fff;
+	pointer-events: none;
+	opacity: 0;
+	position: fixed;
+	inset: 0;
+	z-index: 2000;
+	block-size: 100%;
+	inline-size: 100%;
+
+	/** Установить свои значения */
+	padding: rem(30) rem(10);
+	overflow-block: auto;
+	background-color: rgba(#000, 50%);
+	transition: opacity var(--transition);
+
+	&.is-open {
+		pointer-events: auto;
+		opacity: 1;
+
+		.popup__content {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	// .popup__wrapper
+	&__wrapper {
+		display: flex;
+		min-block-size: 100%;
+		align-items: center;
+	}
+
+	// .popup__content
+	&__content {
+		opacity: 0;
+		position: relative;
+		margin: 0 auto;
+		inline-size: 100%;
+		max-inline-size: rem(690);
+
+		/** Установить свои значения */
+		padding: rem(30) rem(50);
+		background-color: $white-100;
+		transform: translateY(rem(-200));
+		transition: transform var(--transition),
+					opacity var(--transition);
+			
+	}
+
+	// .popup__close
+	&__close {
+		display: flex;
+		position: absolute;
+
+		/** Установить свои значения */
+		inset-block-start: rem(20);
+		inset-inline-end: rem(20);
+		border-radius: var(--radius) ;
+		block-size: rem(40);
+		inline-size: rem(40);
+		align-items: center;
+		justify-content: center;
+		color: #000;
+		background: transparent;
+	}
+}

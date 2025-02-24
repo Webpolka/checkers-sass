@@ -1,0 +1,83 @@
+
+// --------------------------------------------------------- HTML --------------------------------------------------------------
+//
+// div class="container">
+// <div class="grid">
+//     <div class="item">
+//         <label class="radio-color">
+//             <input class="radio-color__input" type="radio" name="color" value="red" checked>
+//             <span class="radio-color__box red"></span>
+//         </label>
+//     </div>
+//     <div class="item">
+//         <label class="radio-color bred">
+//             <input class="radio-color__input" type="radio" name="color" value="green">
+//             <span class="radio-color__box green"></span>
+//         </label>
+//     </div>
+//     <div class="item">
+//         <label class="radio-color">
+//             <input class="radio-color__input" type="radio" name="color" value="blue">
+//             <span class="radio-color__box blue"></span>
+//         </label>
+//     </div>
+// </div>
+// </div>
+//
+// ----------------------------------------------------------- SCSS -------------------------------------------------------------
+.radio-color {
+    display: inline-flex;
+    align-items: center;
+    text-wrap: nowrap;
+    .red{
+        background-color: red;
+    }
+    .green{
+        background-color: green;
+    }
+    .blue{
+        background-color: blue;
+    }
+
+    &__input {
+        appearance: none;
+        position: absolute;
+
+        /* Disabled */
+        &:disabled+.radio-color__box {
+            opacity: 0.7;
+        }
+
+        /* Focused */
+        &:focus+.radio-color__box {
+            box-shadow: var(--shadow);
+        }
+
+        /* Checked */
+        &:checked+.radio-color__box {
+            border-color: #fff;
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-position: center;
+            background-image: url(../../icons/down.svg);
+        }
+
+        &:checked:focus+.radio-color__box {
+            outline: 1px solid #000;
+        }
+
+        &:checked:disabled+.radio-color__box {
+            opacity: 0.7;
+        }
+    }
+
+    // .radio-color__box
+    &__box {
+        display: block;
+        border: 2px solid #1a8c80;
+        border-radius: var(--radius);
+        width: 1rem;
+        height: 1rem;
+
+    }
+}

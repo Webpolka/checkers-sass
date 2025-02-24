@@ -1,0 +1,146 @@
+// Заголовки, общие БЄМ блоки и прочее...
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	white-space: nowrap;
+	clip-path: inset(100%);
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+
+.no-scroll {
+	overflow-y: hidden;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+//----------------------------------------------- Containers -----------------------------------------------------------------------
+.container-full {
+	padding: 0 var(--container-padding);
+	max-width: 100%;
+}
+
+.container-left-50 {
+	padding: 0 var(--container-padding);
+	max-width: 50%;
+
+	@include md {
+		max-width: 100%;
+	}
+}
+
+.container-right-50 {
+	padding: 0 var(--container-padding);
+	max-width: 50%;
+	margin-left: auto;
+
+	@include md {
+		max-width: 100%;
+	}
+}
+
+.container-right {
+	padding-left: calc((100% - var(--container-width)) / 2 + var(--container-padding));
+
+	@include xl {
+		padding-left: var(--container-padding);
+	}
+}
+
+.container-left {
+	padding-right: calc((100% - var(--container-width)) / 2 + var(--container-padding));
+
+	@include xl {
+		padding-right: var(--container-padding);
+	}
+}
+
+.container-half-left {
+	padding-right: calc((100% - var(--container-width)) / 2 + (var(--container-width) / 2));
+	padding-left: calc((100% - var(--container-width)) / 2 + var(--container-padding));
+
+	@include xl {
+		padding-left: var(--container-padding);
+	}
+
+	@include md {
+		padding: 0 var(--container-padding);
+	}
+}
+
+.container-half-right {
+	padding-left: calc((100% - var(--container-width)) / 2 + (var(--container-width) / 2));
+	padding-right: calc((100% - var(--container-width)) / 2 + var(--container-padding));
+
+	@include xl {
+		padding-right: var(--container-padding);
+	}
+
+	@include md {
+		padding: 0 var(--container-padding);
+	}
+}
+
+//-------------------------------- Полоса влево за пределы контейнера в бесконечность ------------------------------------------
+
+.left-infinity {
+	--paddingTop: 1.25rem;
+	--paddingRight: 4rem;
+	--paddingBottom: 1.25rem;
+	--backgroundColor: var(--color-main);
+
+	display: inline-block;
+	position: relative;
+	padding-top: var(--paddingTop);
+	padding-right: var(--paddingRight);
+	padding-bottom: var(--paddingBottom);
+	background-color: var(--backgroundColor);
+
+	&::before {
+		position: absolute;
+		content: "X";
+		left: -5000px;
+		width: 5000px;
+		top: 0;
+		padding-top: var(--paddingTop);
+		padding-right: var(--paddingRight);
+		padding-bottom: var(--paddingBottom);
+		background-color: var(--backgroundColor);		
+		color: var(--color-main);		
+	}
+}
+
+.bred {
+	border: 1px solid red;
+}
+
+//--------------------------------------------------------- Buttons ---------------------------------------------------------------
+.btn {
+	display: inline-block;
+	width: 100%;
+	padding: 1rem;
+	background-color: var(--color-main);
+	color: var(--color-black);
+	border: 1px solid var(--color-black);
+}

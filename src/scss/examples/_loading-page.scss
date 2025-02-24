@@ -1,0 +1,171 @@
+// ----------------------------------------------- HTML --------------------------------------------------------------------
+//
+//  <div class="loading-page" id="loading-page"></div>
+//
+// ------------------------------------------------ JS ---------------------------------------------------------------------
+//
+// function loadingPage(){
+//     if (document.querySelector('#loading-page')) {
+//         const load = document.querySelector('#loading-page')
+//         let container = load.appendChild(document.createElement('div'))
+//         container.classList.add('loading-page__container')
+    
+//         for (let n = 0; n < 5; n++) {
+//             let containerItem = container.appendChild(document.createElement('div'))
+//             containerItem.classList.add('loading-page__container-item')
+//         }
+//         setTimeout(loadingReset, 4000)
+//         function loadingReset() {
+//             load.remove()
+//         }
+//     }
+//     // --- если BaseHelpers.js не подключен в main.js раскомментируйте этот кусочек кода ----
+//     //
+//     // const html = document.documentElement
+//     // window.addEventListener('load', () => {
+//     //     setTimeout(() => {
+//     //         html.classList.add('loaded')
+//     //     }, 0);
+//     // });
+//     //
+//     // ---------------------------------------------------------------------------------------
+//     }
+//     export default loadingPage
+//
+// ---------------------------------------------- SCSS ----------------------------------------------------------------------
+html.loaded{
+    .loading-page{
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    }
+}
+.loading-page {
+    --color: rgb(236, 63, 24);
+    --size: 3rem;
+
+    opacity: 1; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #fff;
+
+    &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 50px;
+        -webkit-transform: translate(-75%, -50%);
+        -moz-transform: translate(-75%, -50%);
+        -ms-transform: translate(-75%, -50%);
+        -o-transform: translate(-75%, -50%);
+        transform: translate(-75%, -50%);
+
+        &-item {
+
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: var(--size);
+            ;
+            height: var(--size);
+            ;
+            background: var(--color);
+            border-radius: 50%;
+            -webkit-transform: scale(.1);
+            -moz-transform: scale(.1);
+            -ms-transform: scale(.1);
+            -o-transform: scale(.1);
+            transform: scale(.1);
+            -webkit-transform-origin: center left;
+            -moz-transform-origin: center left;
+            -ms-transform-origin: center left;
+            -o-transform-origin: center left;
+            transform-origin: center left;
+            -webkit-animation: loading 4s infinite;
+            animation: loading 4s infinite;
+
+            &:nth-of-type(2) {
+                -webkit-animation-delay: .3s;
+                animation-delay: .3s;
+            }
+
+            &:nth-of-type(3) {
+                -webkit-animation-delay: .6s;
+                animation-delay: .6s;
+            }
+
+            &:nth-of-type(4) {
+                -webkit-animation-delay: .9s;
+                animation-delay: .9s;
+            }
+
+            &:nth-of-type(5) {
+                -webkit-animation-delay: 1.2s;
+                animation-delay: 1.2s;
+            }
+        }
+    }
+}
+
+@-webkit-keyframes loading {
+    0% {
+        -webkit-transform: scale(.1);
+        -moz-transform: scale(.1);
+        -ms-transform: scale(.1);
+        -o-transform: scale(.1);
+        transform: scale(.1);
+    }
+
+    45% {
+        left: 120px;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    90% {
+        left: 294px;
+        -webkit-transform: scale(.1);
+        -moz-transform: scale(.1);
+        -ms-transform: scale(.1);
+        -o-transform: scale(.1);
+        transform: scale(.1);
+    }
+}
+
+@keyframes loading {
+    0% {
+        -webkit-transform: scale(.1);
+        -moz-transform: scale(.1);
+        -ms-transform: scale(.1);
+        -o-transform: scale(.1);
+        transform: scale(.1);
+    }
+
+    45% {
+        left: 120px;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    90% {
+        left: 294px;
+        -webkit-transform: scale(.1);
+        -moz-transform: scale(.1);
+        -ms-transform: scale(.1);
+        -o-transform: scale(.1);
+        transform: scale(.1);
+    }
+}

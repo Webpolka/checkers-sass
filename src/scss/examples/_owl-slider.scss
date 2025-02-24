@@ -1,0 +1,135 @@
+// -------------------------------------------------------------- JS ------------------------------------------------------------
+//
+// function owlCarousel (){
+//     $(".section__slider").owlCarousel({
+//         loop: true, 
+//         margin: 0,
+//         nav: true,
+//      //   navContainer: '.myNav',   
+//         dotsContainer: '.myDots',
+//         responsive: {
+//             0: {
+//                 items: 1
+//             }
+//             // 600:{
+//             //     items:3
+//             // },
+//             // 1000:{
+//             //     items:5
+//             // }
+//         },
+//         navText : ["",""]
+//     });
+// }
+
+// export default owlCarousel;
+//
+// -------------------------------------------------------------- HTML -----------------------------------------------------------
+//
+// <div class="section__slider owl-carousel">
+// <div class="section__slide">
+//   <h2>Hello World - 1</h2>
+// </div>
+// <div class="section__slide">
+//   <h2>Hello World - 2</h2>
+// </div>
+// <div class="section__slide">
+//   <h2>Hello World - 3</h2>
+// </div>
+// </div>
+// <div class="section__panel">
+// <!--  <div class="myNav"></div>  -->
+//   <div class="myDots"></div>
+// </div>
+//
+// ---------------------------------------------------------------- SCSS ----------------------------------------------------------
+.section {
+    &__slider {
+
+        .owl-prev,
+        .owl-next {
+            position: absolute;
+            top: 45%;
+            width: rem(32);
+            height: rem(61);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain !important;
+        }
+
+        .owl-prev {
+            left: 0;
+            background-image: url(../../icons/left.svg) !important;
+        }
+
+        .owl-next {
+            right: 0;
+            background-image: url(../../icons/right.svg) !important;
+        }
+    }
+
+    &__slide {
+        width: 90%;
+        height: 10rem;
+        background-color: rgb(0, 0, 0, 0.3);
+        padding: 5rem;
+
+        h2 {
+            font-size: 2rem;
+            color: white;
+        }
+    }
+
+    &__panel {
+        position: relative;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: rem(75);
+
+        // .myNav {
+        //     .owl-prev,
+        //     .owl-next {
+        //         position: absolute;
+        //         top: 45%;
+        //         width: rem(32);
+        //         height: rem(61);
+        //         background-repeat: no-repeat;
+        //         background-position: center;
+        //         background-size: contain !important;
+        //     }
+
+        //     .owl-prev {
+        //         left: 0;
+        //         background-image: url(../../icons/left.svg) !important;
+        //     }
+
+        //     .owl-next {
+        //         right: 0;
+        //         background-image: url(../../icons/right.svg) !important;
+        //     }
+        // }
+
+        .myDots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                display: inline-block;
+                width: rem(30);
+                height: rem(30);
+                background-color: var(--color-white);
+                border: 1px solid var(--color-white);
+                border-radius: 5rem;
+                margin-left: rem(14);
+                margin-right: rem(14);
+            }
+
+            .owl-dot.active {
+                background-color: var(--color-main);
+                border: 1px solid var(--color-main);
+            }
+        }
+
+    }
+}

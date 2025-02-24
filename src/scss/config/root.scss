@@ -1,0 +1,62 @@
+
+// ----------------------------------- ОСНОВНЫЕ КОРНЕВЫЕ ПЕРЕМЕННЫЕ ----------------------------
+
+// ---------- Проследите чтоб занчения 2-х первых переменных в root:  совпадали с переменными $ внизу ! ---
+:root {
+	// -удалите класс .container в utils.scss если не хотите для него жосткой ширины, а хотите пойти по правилам Bootstrap
+	--container-width: 1200px;
+	--container-padding: 15px;
+	--bs-gutter-x: var(--container-padding);  // --- гутеры для Bootstrap ---
+
+	// ------------ Fonts Vars -------------
+	--font-main: "Roboto", sans-serif;
+	--font-main-size: 16px;
+	--font-main-weight: 400;
+	--font-accent: 'Oswald', sans-serif;
+	--font-titles: var(--font-accent);
+
+	// ------------ Colors Vars -------------
+	--color-white: #fff;
+	--color-black: #131313;	
+	--color-link: #114f89;
+	--color-link-hover: rgb(112, 72, 206);
+	--color-btn:  #893d11;
+	--color-btn-hover:  #aa6a48;
+
+	// ----------------- Header and footer -----------
+	--color-bg-header: rgb(197, 196, 197);
+	--color-bg-footer: rgb(58, 56, 57) ;
+
+	--transition: 0.3s ease-in-out;
+	--radius: rem(4);
+
+	--shadow: 0 0 0 2px #00f;
+	--shadow-hover: 0 0 5px 0 #{rgba(#000, 10%)},
+	0 0 10px 0 #{rgba(#000, 10%)},
+	0 0 15px 0 #{rgba(#000, 10%)};
+}
+
+
+// ----------- Mode Switcher -------------
+.light-mode {
+	--color-title: rgba(0, 0, 0, .9);
+	--color-main: #242323;	
+	--color-page-bg: rgb(255, 255, 255);
+	--color-post-bg: rgb(251, 249, 249);
+}
+
+.dark-mode {
+	--color-title: rgba(255, 255, 255);
+	--color-main: #b4a9a9;	
+	--color-page-bg: rgb(0, 0, 0, 0.9);
+	--color-post-bg: rgb(52, 51, 51);
+}
+
+
+// ---------$$$$$$$$$$$$$$$$ Нужно для функции Adaptive Clamp $$$$$$$$$$$$$---------------
+$container-width: 1200;
+$main-offset: 15;
+
+$max-width: 1920;
+$min-width: 320;
+$max-width-container: $container-width + ($main-offset * 2);
